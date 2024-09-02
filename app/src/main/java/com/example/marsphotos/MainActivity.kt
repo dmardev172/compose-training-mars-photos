@@ -44,3 +44,4 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+//TODO - add list of json objects (items like CardView)
