@@ -5,6 +5,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 
 private const val BASE_URL = "https://android-kotlin-fun-mars-server.appspot.com"
+//private const val BASE_URL = "https://rickandmortyapi.com"
+//private const val BASE_URL = "https://jsonplaceholder.typicode.com"
 
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(ScalarsConverterFactory.create())
@@ -12,6 +14,8 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface MarsApiService {
+//    @GET("api/character/1")
+//    @GET("posts")
     @GET("photos")
     suspend fun getPhotos(): String
 

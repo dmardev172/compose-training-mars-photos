@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         //enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        // enableEdgeToEdge() instead
+        // enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             MarsPhotosTheme {
