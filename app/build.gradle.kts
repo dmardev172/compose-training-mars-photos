@@ -68,13 +68,13 @@ android {
 
 dependencies {
 
-    // Import the Compose BOM
-    implementation(platform("androidx.compose:compose-bom:2023.04.01")) //2023.08.00
-    implementation("androidx.activity:activity-compose:1.6.1") //1.8.0
+    // Import the Compose BOM 2023.04.01
+    implementation(platform("androidx.compose:compose-bom:2023.04.01")) //2023.08.00 not works, 2024.02.01 tutorial-code looks good but AAR metadata err.
+    implementation("androidx.activity:activity-compose:1.6.1") //1.8.0, 1.8.2 tutorial - it has 8.2.1 AGP gradle-8.2-bin.zip
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.core:core-ktx:1.9.0") //1.12.0
+    implementation("androidx.core:core-ktx:1.9.0") //1.12.0 tutorial
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1") //2.6.2
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1") //2.6.2
 
