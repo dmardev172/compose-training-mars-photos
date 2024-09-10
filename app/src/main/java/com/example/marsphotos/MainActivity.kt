@@ -20,65 +20,54 @@ package com.example.marsphotos
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.core.view.WindowCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.marsphotos.ui.theme.MarsPhotosTheme
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         //enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         // enableEdgeToEdge()
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+//        WindowCompat.setDecorFitsSystemWindows(window, false) // not all, do something else
         setContent {
             MarsPhotosTheme {
-                /*Surface(
-                    modifier = Modifier.fillMaxSize(),
-                ) {
-                    MarsPhotosApp()
-                }*/
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    val items = remember {
-                        (1..100).map { "Item $it" }
-                    }
-                    var isRefreshing by remember {
-                        mutableStateOf(false)
-                    }
-                    val scope = rememberCoroutineScope()
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        PullToRefreshLazyColumn(
-                            items = items,
-                            content = { itemTitle ->
-                                Text(text = itemTitle,
-                                modifier = Modifier.padding(16.dp))
-                            },
-                            isRefreshing = isRefreshing,
-                            onRefresh = {
-                                scope.launch {
-                                    isRefreshing = true
-                                    delay(3000L) // Simulated API call
-                                    isRefreshing = false
-                                }
-                            }
+                val viewModel = viewModel<MainViewModel>()
+
+                val isLoading by viewModel.isLoading.collectAsState()
+                val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isLoading)
+
+                SwipeRefresh(
+                    state = swipeRefreshState,
+                    onRefresh = viewModel::loadStuff,
+                    indicator = { state, refreshTrigger ->
+                        SwipeRefreshIndicator(
+                            state = state, refreshTriggerDistance = refreshTrigger,
+                            backgroundColor = Color.Green,
+                            contentColor = Color.DarkGray
                         )
-                        Button(modifier = Modifier.align(Alignment.BottomCenter),
-                            onClick = { isRefreshing = true }) {
-                            Text(text = "Refresh")
+                    },
+                ) {
+                    LazyColumn(modifier = Modifier.fillMaxSize()) {
+                        items(100) {
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(32.dp),
+                                text = "Test"
+                            )
                         }
                     }
                 }

@@ -77,6 +77,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.9.0") //1.12.0 tutorial
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1") //2.6.2
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1") //2.6.2
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.27.0")
 
     // Kotlin serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
